@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://ofmqhgouwbh6"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ga2vx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_moluk"]
+radius = 0.3
+height = 1.03078
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_urx47"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3wow6"]
+size = Vector2(0.5, 0.3)
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80688"]
+cull_mode = 2
+albedo_color = Color(0.0588235, 0.505882, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a7cc7"]
+size = Vector3(0.285, 0.14, 0.375)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lyoke"]
+radius = 0.025
+height = 0.06
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+script = ExtResource("1_ga2vx")
+
+[node name="Orientation" type="Node3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_moluk")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_urx47")
+
+[node name="Cape" type="SoftBody3D" parent="BodyMesh"]
+transform = Transform3D(-6.26228e-15, -8.07706e-08, 1.27153, 1.61602, 0.0808481, 7.25454e-09, -0.122473, 1.06678, 9.57229e-08, 0, -0.0264248, 0.327417)
+mesh = SubResource("PlaneMesh_3wow6")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_80688")
+simulation_precision = 25
+linear_stiffness = 0.1
+pinned_points = [0, 132]
+attachments/0/point_index = 0
+attachments/0/spatial_attachment_path = NodePath("../CapePin")
+attachments/0/offset = Vector3(0.373659, 0.00315121, 0.0176658)
+attachments/1/point_index = 132
+attachments/1/spatial_attachment_path = NodePath("../CapePin2")
+attachments/1/offset = Vector3(-0.381137, 0.00315121, 0.0176658)
+
+[node name="Eyes" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.273521, -0.148127)
+mesh = SubResource("BoxMesh_a7cc7")
+
+[node name="CapePin" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182929, 0.374429, 0.279133)
+mesh = SubResource("SphereMesh_lyoke")
+
+[node name="CapePin2" type="MeshInstance3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.190407, 0.374429, 0.279133)
+mesh = SubResource("SphereMesh_lyoke")
+
+[node name="CameraArmPivot" type="Node3D" parent="."]
+
+[node name="CameraArm" type="SpringArm3D" parent="CameraArmPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.795937, 0)
+collision_mask = 2
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraArmPivot/CameraArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)

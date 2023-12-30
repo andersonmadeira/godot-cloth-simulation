@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://43sj4u5ecoi7"]
+
+[ext_resource type="Script" path="res://ball.gd" id="1_2i86h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_u7jw8"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oingy"]
+radius = 0.25
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0c5i"]
+direction = Vector3(0, 0, 0)
+spread = 84.723
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+radial_accel_max = 2.0
+scale_min = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_8g7ve"]
+radius = 0.1
+height = 0.2
+
+[node name="Ball" type="RigidBody3D"]
+mass = 0.1
+script = ExtResource("1_2i86h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_u7jw8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_oingy")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.64
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_a0c5i")
+draw_pass_1 = SubResource("SphereMesh_8g7ve")

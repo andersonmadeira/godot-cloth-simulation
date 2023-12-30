@@ -1,0 +1,124 @@
+[gd_scene load_steps=10 format=3 uid="uid://b383qnbrhk3xj"]
+
+[ext_resource type="PackedScene" uid="uid://ofmqhgouwbh6" path="res://player.tscn" id="1_cwwxm"]
+[ext_resource type="Script" path="res://pit.gd" id="3_6u88y"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i4yyd"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_sv7ql"]
+sky_material = SubResource("ProceduralSkyMaterial_i4yyd")
+
+[sub_resource type="Environment" id="Environment_p2jaf"]
+background_mode = 2
+sky = SubResource("Sky_sv7ql")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hulks"]
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g8u1"]
+cull_mode = 2
+albedo_color = Color(0.0588235, 0.505882, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xopy2"]
+size = Vector2(4, 4)
+subdivide_width = 25
+subdivide_depth = 25
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uebot"]
+size = Vector3(54.3066, 13.5691, 63.4553)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p2jaf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016818, 0.00824646, -0.00356483)
+use_collision = true
+size = Vector3(15.5039, 0.0202942, 16.2139)
+
+[node name="Player" parent="." node_paths=PackedStringArray("world") instance=ExtResource("1_cwwxm")]
+world = NodePath("..")
+
+[node name="Pole" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0, -1, -1.74845e-07, -7.10543e-15, -1.74845e-07, 1, -1, 0, -8.71732e-15, 0.0907787, 2.56225, -2.00031)
+use_collision = true
+radius = 0.0552542
+height = 3.5233
+
+[node name="Cloth" type="SoftBody3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, 1.31134e-07, 0, 1.52555, -2)
+mesh = SubResource("PlaneMesh_hulks")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g8u1")
+simulation_precision = 25
+linear_stiffness = 0.9
+pinned_points = [132, 0]
+attachments/0/point_index = 132
+attachments/0/spatial_attachment_path = NodePath("../Pole")
+attachments/0/offset = Vector3(-0.000312956, 1.09078, -0.0367)
+attachments/1/point_index = 0
+attachments/1/spatial_attachment_path = NodePath("../Pole")
+attachments/1/offset = Vector3(-0.000313218, -0.909221, -0.0367003)
+
+[node name="Pole2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, -2.95, 0.742, 1.05)
+use_collision = true
+radius = 0.0552542
+height = 1.49749
+
+[node name="Pole3" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, -2.95, 0.742, 4.95)
+use_collision = true
+radius = 0.0552542
+height = 1.49749
+
+[node name="Pole4" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, 0.95, 0.742, 4.95)
+use_collision = true
+radius = 0.0552542
+height = 1.49749
+
+[node name="Pole5" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, 0.95, 0.742, 1.05)
+use_collision = true
+radius = 0.0552542
+height = 1.49749
+
+[node name="Net" type="SoftBody3D" parent="."]
+transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, -1, 1.5, 3)
+mesh = SubResource("PlaneMesh_xopy2")
+surface_material_override/0 = SubResource("StandardMaterial3D_2g8u1")
+simulation_precision = 100
+total_mass = 5.01
+linear_stiffness = 0.1
+pinned_points = [702, 728, 26, 0]
+attachments/0/point_index = 702
+attachments/0/spatial_attachment_path = NodePath("../Pole2")
+attachments/0/offset = Vector3(0.05, 0.758, -0.0499998)
+attachments/1/point_index = 728
+attachments/1/spatial_attachment_path = NodePath("../Pole2")
+attachments/1/offset = Vector3(-3.95, 0.758, -0.0499998)
+attachments/2/point_index = 26
+attachments/2/spatial_attachment_path = NodePath("../Pole3")
+attachments/2/offset = Vector3(-0.0500001, 0.758, 3.95)
+attachments/3/point_index = 0
+attachments/3/spatial_attachment_path = NodePath("../Pole4")
+attachments/3/offset = Vector3(3.95, 0.758, 0.05)
+
+[node name="Pit" type="Area3D" parent="."]
+script = ExtResource("3_6u88y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.04733, 0)
+shape = SubResource("BoxShape3D_uebot")
+
+[connection signal="body_entered" from="Pit" to="Pit" method="_on_body_entered"]
