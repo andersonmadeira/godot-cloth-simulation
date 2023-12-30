@@ -1,3 +1,3 @@
 # Godot Cloth Simulation Sample Project
 
-Godot 4.2.1
+An experiment on cloth simulation using Godot 4.2.1
