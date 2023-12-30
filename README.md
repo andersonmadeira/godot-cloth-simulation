@@ -1,3 +1,3 @@
 # Godot Cloth Simulation Sample Project
 
-Guaranteed to work in Godot 4.2.1
+Godot 4.2.1
