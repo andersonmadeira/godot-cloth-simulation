@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ofmqhgouwbh6"]
+[gd_scene load_steps=9 format=3 uid="uid://ofmqhgouwbh6"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ga2vx"]
 
@@ -12,8 +12,8 @@ height = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3wow6"]
 size = Vector2(0.5, 0.3)
-subdivide_width = 10
-subdivide_depth = 10
+subdivide_width = 5
+subdivide_depth = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80688"]
 cull_mode = 2
@@ -22,12 +22,17 @@ albedo_color = Color(0.0588235, 0.505882, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_a7cc7"]
 size = Vector3(0.285, 0.14, 0.375)
 
-[sub_resource type="SphereMesh" id="SphereMesh_lyoke"]
-radius = 0.025
-height = 0.06
+[sub_resource type="CylinderMesh" id="CylinderMesh_uikpk"]
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g6tik"]
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.2
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 script = ExtResource("1_ga2vx")
 
 [node name="Orientation" type="Node3D" parent="."]
@@ -41,31 +46,51 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CapsuleMesh_urx47")
 
 [node name="Cape" type="SoftBody3D" parent="BodyMesh"]
-transform = Transform3D(-6.26228e-15, -8.07706e-08, 1.27153, 1.61602, 0.0808481, 7.25454e-09, -0.122473, 1.06678, 9.57229e-08, 0, -0.0264248, 0.327417)
+transform = Transform3D(-4.07947e-15, -7.86369e-08, 1.27153, 1.05273, 0.0787124, 7.25454e-09, -0.0797832, 1.0386, 9.57229e-08, 0, 0.0930595, 0.327417)
 mesh = SubResource("PlaneMesh_3wow6")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_80688")
 simulation_precision = 25
 linear_stiffness = 0.1
-pinned_points = [0, 132]
-attachments/0/point_index = 0
-attachments/0/spatial_attachment_path = NodePath("../CapePin")
-attachments/0/offset = Vector3(0.373659, 0.00315121, 0.0176658)
-attachments/1/point_index = 132
-attachments/1/spatial_attachment_path = NodePath("../CapePin2")
-attachments/1/offset = Vector3(-0.381137, 0.00315121, 0.0176658)
+pinned_points = [42, 28, 14, 0, 35, 21, 7]
+attachments/0/point_index = 42
+attachments/0/spatial_attachment_path = NodePath("../CapePins")
+attachments/0/offset = Vector3(0.0866952, -0.220487, 0.0616011)
+attachments/1/point_index = 28
+attachments/1/spatial_attachment_path = NodePath("../CapePins")
+attachments/1/offset = Vector3(0.121373, -0.124784, 0.0543481)
+attachments/2/point_index = 14
+attachments/2/spatial_attachment_path = NodePath("../CapePins")
+attachments/2/offset = Vector3(0.156051, -0.0290809, 0.0470951)
+attachments/3/point_index = 0
+attachments/3/spatial_attachment_path = NodePath("../CapePins")
+attachments/3/offset = Vector3(0.19073, 0.066622, 0.0398421)
+attachments/4/point_index = 35
+attachments/4/spatial_attachment_path = NodePath("../CapePins")
+attachments/4/offset = Vector3(0.121373, -0.459744, 0.0797336)
+attachments/5/point_index = 21
+attachments/5/spatial_attachment_path = NodePath("../CapePins")
+attachments/5/offset = Vector3(0.156051, -0.364041, 0.0724806)
+attachments/6/point_index = 7
+attachments/6/spatial_attachment_path = NodePath("../CapePins")
+attachments/6/offset = Vector3(0.19073, -0.268338, 0.0652276)
 
 [node name="Eyes" type="MeshInstance3D" parent="BodyMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.273521, -0.148127)
 mesh = SubResource("BoxMesh_a7cc7")
 
-[node name="CapePin" type="MeshInstance3D" parent="BodyMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182929, 0.374429, 0.279133)
-mesh = SubResource("SphereMesh_lyoke")
+[node name="CapePins" type="Node3D" parent="BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.289621, 0.267629)
 
-[node name="CapePin2" type="MeshInstance3D" parent="BodyMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.190407, 0.374429, 0.279133)
-mesh = SubResource("SphereMesh_lyoke")
+[node name="CapePin" type="MeshInstance3D" parent="BodyMesh/CapePins"]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, -0.182929, 0.0518775, -0.0264682)
+mesh = SubResource("CylinderMesh_uikpk")
+skeleton = NodePath("../..")
+
+[node name="CapePin2" type="MeshInstance3D" parent="BodyMesh/CapePins"]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0.179146, 0.0518775, -0.0296858)
+mesh = SubResource("CylinderMesh_g6tik")
+skeleton = NodePath("../..")
 
 [node name="CameraArmPivot" type="Node3D" parent="."]
 

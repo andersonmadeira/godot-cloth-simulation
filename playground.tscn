@@ -47,6 +47,7 @@ use_collision = true
 size = Vector3(15.5039, 0.0202942, 16.2139)
 
 [node name="Player" parent="." node_paths=PackedStringArray("world") instance=ExtResource("1_cwwxm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 world = NodePath("..")
 
 [node name="Pole" type="CSGCylinder3D" parent="."]
@@ -61,13 +62,19 @@ mesh = SubResource("PlaneMesh_hulks")
 surface_material_override/0 = SubResource("StandardMaterial3D_2g8u1")
 simulation_precision = 25
 linear_stiffness = 0.9
-pinned_points = [132, 0]
+pinned_points = [132, 0, 72, 60]
 attachments/0/point_index = 132
 attachments/0/spatial_attachment_path = NodePath("../Pole")
-attachments/0/offset = Vector3(-0.000312956, 1.09078, -0.0367)
+attachments/0/offset = Vector3(-0.000309857, 1.09078, -0.0366998)
 attachments/1/point_index = 0
 attachments/1/spatial_attachment_path = NodePath("../Pole")
-attachments/1/offset = Vector3(-0.000313218, -0.909221, -0.0367003)
+attachments/1/offset = Vector3(-0.000310119, -0.909221, -0.0367001)
+attachments/2/point_index = 72
+attachments/2/spatial_attachment_path = NodePath("../Pole")
+attachments/2/offset = Vector3(-0.000309976, 0.181688, -0.0366999)
+attachments/3/point_index = 60
+attachments/3/spatial_attachment_path = NodePath("../Pole")
+attachments/3/offset = Vector3(-0.00031, -0.000130363, -0.0366999)
 
 [node name="Pole2" type="CSGCylinder3D" parent="."]
 transform = Transform3D(-5.73206e-15, -1.31134e-07, 1, 0, 1, 1.31134e-07, -1, 0, -5.73206e-15, -2.95, 0.742, 1.05)
@@ -103,16 +110,16 @@ linear_stiffness = 0.1
 pinned_points = [702, 728, 26, 0]
 attachments/0/point_index = 702
 attachments/0/spatial_attachment_path = NodePath("../Pole2")
-attachments/0/offset = Vector3(0.05, 0.758, -0.0499998)
+attachments/0/offset = Vector3(0.05, 0.758, -0.0499996)
 attachments/1/point_index = 728
 attachments/1/spatial_attachment_path = NodePath("../Pole2")
-attachments/1/offset = Vector3(-3.95, 0.758, -0.0499998)
+attachments/1/offset = Vector3(-3.95, 0.758, -0.0499996)
 attachments/2/point_index = 26
 attachments/2/spatial_attachment_path = NodePath("../Pole3")
 attachments/2/offset = Vector3(-0.0500001, 0.758, 3.95)
 attachments/3/point_index = 0
 attachments/3/spatial_attachment_path = NodePath("../Pole4")
-attachments/3/offset = Vector3(3.95, 0.758, 0.05)
+attachments/3/offset = Vector3(3.95, 0.758, 0.0500001)
 
 [node name="Pit" type="Area3D" parent="."]
 script = ExtResource("3_6u88y")
