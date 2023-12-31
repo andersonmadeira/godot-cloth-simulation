@@ -26,6 +26,7 @@ var movement_direction := Vector3.ZERO
 @onready var orientation: Node3D = $Orientation
 
 var controlling_camera := false
+# TODO: The way this var is used deserves improvment, we might have to remove it?
 var mouse_button_down := 0
 var is_running := false
 
